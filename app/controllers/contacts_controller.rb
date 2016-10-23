@@ -6,13 +6,14 @@ class ContactsController < ApplicationController
       @contact = Contact.new
     end
   end
-  def create
-    @contact= Contact.new(contacts_params)
+
+ def create
+    @contact = Contact.new(contacts_params)
+    @contact.user_id = current_user.id
     if @contact.save
-      # 一覧画面へ遷移して"ブログを作成しました！"とメッセージを表示します。
-      redirect_to root_path, notice: "お問い合わせ完了しました！"
+      redirect_to contacts_path, notice: "ブログを作成しました！"
+      NoticeMailer.sendmail_contact(@contact).deliver
     else
-      # 入力フォームを再描画します。
       render action: 'new'
     end
   end
