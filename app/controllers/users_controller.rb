@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   end
 
   def followers
-    @user = current_user
-    @followings = current_user.followed_users
-    @followers = current_user.followers
+    @user =  User.find(params[:id])
+    @followings = @user.followed_users
+    @followers = @user.followers
   end
 end
