@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   resources :tasks
   get 'relationships/create'
 
@@ -6,6 +8,14 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :edit, :update] do
     resources :tasks
+    resources :submit_requests , shallow: true do
+      get 'approve'
+      get 'unapprove'
+      get 'reject'
+      collection do
+        get 'inbox'
+      end
+    end
     member do
       get 'followers'
     end
