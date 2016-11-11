@@ -32,6 +32,21 @@
       </tr>
     <% end %>
   </tbody>
+  <tbody>
+    <% @submit_requests.each do |submit_request| %>
+      <tr>
+        <td><%= submit_request.user.name %></td>
+        <td><%= submit_request.task.title %></td>
+        <td><%= submit_request.task.content %></td>
+        <td><%= submit_request.task.deadline %></td>
+        <td><%= submit_request.charge_id %></td>
+        <td><%= if submit_request.task.done? then "完了" else "未完了" end %></td>
+        <td><%= submit_request.task.status == 1? "対応中" : "未着手" %></td>
+        <td><%= link_to '編集', edit_submit_request_path(submit_request) %></td>
+        <td><%= link_to '削除', submit_request_url(submit_request.id), method: :delete, remote: true, data: { confirm: '本当に削除していいですか？' } %></td>      
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
         <%= link_to 'New Task', new_user_task_path(@user) %>

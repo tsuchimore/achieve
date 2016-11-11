@@ -5,7 +5,10 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
+    @task_all = Task.all
     @tasks = Task.where(user_id: params[:user_id]).where.not(done: true, status: 1)
+                 .order(updated_at: :desc)
+    @submit_requests = SubmitRequest.where(user_id: current_user.id).where(status: 2)
                  .order(updated_at: :desc)
     @user = User.find(params[:user_id])
   end
