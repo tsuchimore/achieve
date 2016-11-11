@@ -83,7 +83,7 @@ class SubmitRequestsController < ApplicationController
   def reject
     @submit_request.update(status: 8)
     @submit_request.task.update(status: 8, charge_id: current_user.id)
-    @submit_requests = SubmitRequest.where(charge_id: current_user.id).order(updated_at: :desc)
+    @submit_requests = SubmitRequest.where(user_id: current_user.id).order(updated_at: :desc)
     respond_to do |format|
       format.js { render :reaction_index }
     end
