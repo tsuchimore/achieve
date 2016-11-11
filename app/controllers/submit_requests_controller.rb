@@ -55,6 +55,11 @@ class SubmitRequestsController < ApplicationController
   end
 
   def destroy
+    @submit_request.destroy
+    respond_to do |format|
+      format.html { redirect_to user_submit_requests_path(current_user.id, @submit_request), notice: 'タスクを削除しました。' }
+      format.json { head :no_content }
+    end
   end
 
   def approve
